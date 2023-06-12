@@ -9,21 +9,22 @@ Funciones Disponibles
 ---------------------
 
 ```c
-#define mygsl_write_vector(v, ...) ...
-void mygsl_write_vector_int (const gsl_vector_int         *v, FILE *file);
-void mygsl_write_vector_d   (const gsl_vector             *v, FILE *file, const char *format);
-void mygsl_write_vector_ld  (const gsl_vector_long_double *v, FILE *file, const char *format);
+#define mygsl_write_txt(arr, ...) ...
+void mygsl_write_vector_int (const gsl_vector_int  *v, FILE *file);
+void mygsl_write_vector_d   (const gsl_vector      *v, FILE *file, const char *format);
+void mygsl_write_matrix_int (const gsl_mattrix_int *m, FILE *file);
+void mygsl_write_matrix_d   (const gsl_mattrix     *m, FILE *file, const char *format);
 ```
-Escribe el vector en el archivo dado. Se escriben todas las componentes en una
-línea, separadas por espacios. La línea se termina con un newline.
-Para vectores de tipo `double` y `long double` hay que especificar un formato,
-que devería ser uno de `%f`, `%e`, `%g`, o sus variantes.
+Escribe el vector o matríz en el archivo dado. Los vectores se escriben en
+una línea, las matríces se escriben una fila por línea. En ambos casos las 
+componentes se separan con espacios.
+Para el tipo `double`, hay que especificar el formato.
 Actualmente sólo está implementada la versión para `double`.
 
+
 ```c
-gsl_vector_int         *mygsl_read_vector_int (const char *filename, gsl_vector_int         *dest);
-gsl_vector             *mygsl_read_vector_d   (const char *filename, gsl_vector             *dest);
-gsl_vector_long_double *mygsl_read_vector_ld  (const char *filename, gsl_vector_long_double *dest);
+gsl_vector_int *mygsl_read_vector_int (const char *filename, gsl_vector_int *dest);
+gsl_vector     *mygsl_read_vector_d   (const char *filename, gsl_vector     *dest);
 ```
 Lee un vector del archivo dado. Si dest no es `NULL`, escribe el vector en dest,
 que tiene que ser del tamaño correcto. Si dest es `NULL`, aloca un vector nuevo.
@@ -35,21 +36,8 @@ Actualmente sólo está implementada la versión para `double`.
 
 
 ```c
-#define mygsl_write_matrix(m, ...) ...
-void mygsl_write_matrix_int (const gsl_mattrix_int         *m, FILE *file);
-void mygsl_write_matrix_d   (const gsl_mattrix             *m, FILE *file, const char *format);
-void mygsl_write_matrix_ld  (const gsl_mattrix_long_double *m, FILE *file, const char *format);
-```
-Escribe la matríz en el archivo dado. Se escribe una fila por línea, con los
-elementos separados por espacios.
-Para matrices de tipo `double` y `long double` hay que especificar un formato,
-que devería ser uno de `%f`, `%e`, `%g`, o sus variantes.
-Actualmente sólo está implementada la versión para `double`.
-
-```c
-gsl_matrix_int         *mygsl_read_matrix_int (const char *filename, gsl_matrix_int         *dest);
-gsl_matrix             *mygsl_read_matrix_d   (const char *filename, gsl_matrix             *dest);
-gsl_matrix_long_double *mygsl_read_matrix_ld  (const char *filename, gsl_matrix_long_double *dest);
+gsl_matrix_int *mygsl_read_matrix_int (const char *filename, gsl_matrix_int *dest);
+gsl_matrix     *mygsl_read_matrix_d   (const char *filename, gsl_matrix     *dest);
 ```
 Lee una matríz del archivo dado. Si dest no es `NULL`, escribe la matríz en dest,
 que tiene que ser de la forma correcta. Si dest es `NULL`, aloca una matríz nueva.
@@ -62,12 +50,10 @@ Actualmente sólo está implementada la versión para `double`.
 
 ```c
 #define mygsl_print(v, n...) ...
-void mygsl_print_vector_int (const gsl_vector_int         *v, ssize_t n);
-void mygsl_print_vector_d   (const gsl_vector             *v, ssize_t n);
-void mygsl_print_vector_ld  (const gsl_vector_long_double *v, ssize_t n);
-void mygsl_print_matrix_int (const gsl_matrix_int         *v, ssize_t n);
-void mygsl_print_matrix_d   (const gsl_matrix             *v, ssize_t n);
-void mygsl_print_matrix_ld  (const gsl_matrix_long_double *v, ssize_t n);
+void mygsl_print_vector_int (const gsl_vector_int *v, ssize_t n);
+void mygsl_print_vector_d   (const gsl_vector     *v, ssize_t n);
+void mygsl_print_matrix_int (const gsl_matrix_int *v, ssize_t n);
+void mygsl_print_matrix_d   (const gsl_matrix     *v, ssize_t n);
 ```
 Imprime en la terminal los primeros n elementos del vector o las primeras n filas de la
 matríz. Los elementos se separan con `\t`, y la impresión termina con `\n`.

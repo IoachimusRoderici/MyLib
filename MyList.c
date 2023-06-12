@@ -402,6 +402,32 @@ bool list_contains_ptr_plus (const list_ptr_plus *list, void *val){
    return false;
 }
 
+/* Print */
+
+void list_print_int (const list_int *list){
+   list_node_int *node = list->first;
+
+   while (node != NULL){
+      printf ("\t%d", node->val);
+
+      node = node->next;
+   }
+
+   putchar ('\n');
+}
+
+void list_print_double (const list_double *list){
+   list_node_double *node = list->first;
+
+   while (node != NULL){
+      printf ("\t%.3lf", node->val);
+
+      node = node->next;
+   }
+
+   putchar ('\n');
+}
+
 /* For Each */
 
 void list_foreach_int (list_int *list, void f(int)){
@@ -444,29 +470,82 @@ void list_foreach_ptr_plus (list_ptr_plus *list, void f(void *, char)){
    }
 }
 
+/* Iter */
 
-/* Print */
-
-void list_print_int (const list_int *list){
-   list_node_int *node = list->first;
-
-   while (node != NULL){
-      printf ("\t%d", node->val);
-
-      node = node->next;
-   }
-
-   putchar ('\n');
+void list_iter_begin_int (list_int *list){
+   list->current = list->first;
 }
 
-void list_print_double (const list_double *list){
-   list_node_double *node = list->first;
+void list_iter_begin_double (list_double *list){
+   list->current = list->first;
+}
 
-   while (node != NULL){
-      printf ("\t%.3lf", node->val);
+void list_iter_begin_ptr (list_ptr *list){
+   list->current = list->first;
+}
 
-      node = node->next;
-   }
+void list_iter_begin_ptr_plus (list_ptr_plus *list){
+   list->current = list->first;
+}
 
-   putchar ('\n');
+bool list_iter_next_int (list_int *list, size_t *i, int *val){
+   if (list->current == NULL)
+      return false;
+
+   if (list->current == list->first)
+      *i = 0;
+   else
+      (*i)++;
+
+   *val = list->current->val;
+   list->current = list->current->next;
+
+   return true;
+}
+
+bool list_iter_next_double (list_double *list, size_t *i, double *val){
+   if (list->current == NULL)
+      return false;
+
+   if (list->current == list->first)
+      *i = 0;
+   else
+      (*i)++;
+
+   *val = list->current->val;
+   list->current = list->current->next;
+
+   return true;
+}
+
+bool list_iter_next_ptr (list_ptr *list, size_t *i, void **val){
+   if (list->current == NULL)
+      return false;
+
+   if (list->current == list->first)
+      *i = 0;
+   else
+      (*i)++;
+
+   *val = list->current->val;
+   list->current = list->current->next;
+
+   return true;
+}
+
+bool list_iter_next_ptr_plus (list_ptr_plus *list, size_t *i, void **val, char *code){
+   if (list->current == NULL)
+      return false;
+
+   if (list->current == list->first)
+      *i = 0;
+   else
+      (*i)++;
+
+   *val = list->current->val;
+   *code = list->current->code;
+
+   list->current = list->current->next;
+
+   return true;
 }

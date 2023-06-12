@@ -26,9 +26,9 @@ Tenemos cuatro tipos de listas:
 
 
 Para cada tipo de lista se definen dos objetos: una *head* y un nodo. La cabeza es
-una estructura que contiene la longitud de la lista, un pointer al primer nodo, y
-un pointer al último nodo. Los nodos son estructuras que contienen sus valores y un
-pointer al siguiente nodo.
+una estructura que contiene la longitud de la lista, un pointer al primer nodo, un
+pointer al último nodo, y un pointer al nodo actual (usado para iterar). Los nodos
+son estructuras que contienen sus valores y un pointer al siguiente nodo.
 
 Las definiciones son las siguientes:
 
@@ -58,24 +58,28 @@ typedef struct {
    size_t len;
    list_node_int* first;
    list_node_int* last;
+   list_node_int* current;
 } list_int;
 
 typedef struct {
    size_t len;
    list_node_double* first;
    list_node_double* last;
+   list_node_double* current;
 } list_double;
 
 typedef struct {
    size_t len;
    list_node_ptr* first;
    list_node_ptr* last;
+   list_node_ptr* current;
 } list_ptr;
 
 typedef struct {
    size_t len;
    list_node_ptr_plus* first;
    list_node_ptr_plus* last;
+   list_node_ptr_plus* current;
 } list_ptr_plus;
 ```
 
@@ -161,12 +165,7 @@ bool list_contains (const list_ *list, TYPE val);
 Devuelve `true` si val está en la lista, y `false` si no.
 
 
-### Misceláneas
-
-```c
-void list_foreach (list_ *list, void f(TYPE [, char] ));
-```
-Llama a f sucesivamente pasando como argumento cada elemento de la lista, en orden.
+### Print
 
 ```c
 void list_print (const list_int    *list);
@@ -176,6 +175,37 @@ Imprime la lista en la terminal. Separa los elementos con '\t' para facilitar la
 alineación con otras cosas.
 
 
+### Iterar
+
+```c
+void list_foreach (list_ *list, void f(TYPE [, char] ));
+```
+Llama a f sucesivamente pasando como argumento cada elemento de la lista, en orden.
+
+
+```c
+void list_iter_begin (list_ *list);
+```
+Prepara la lista para comenzar a iterar con `list_iter_next`.
+
+```c
+bool list_iter_next (list_ *list, size_t *i, TYPE *val [, char *code]);
+```
+Sólo se puede llamar después de haber llamado a `list_iter_begin`.
+Si no se llegó al final de la lista pone el siguiente elemento en *val, su índice
+en *i, su código en *code, y devuelve `true`. Cuando se llega al final de la lista
+devuelve `false` y no hace nada.
+La intención es que se use de la siguiente manera:
+
+```c
+size_t i;
+TYPE item;
+list_iter_begin(list, &i);
+
+while (list_iter_next(list, &i, &item)){
+   /* hacer cosas acá */
+}
+```
 
 
 

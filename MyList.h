@@ -32,24 +32,28 @@ typedef struct {
    size_t len;
    list_node_int* first;
    list_node_int* last;
+   list_node_int* current;
 } list_int;
 
 typedef struct {
    size_t len;
    list_node_double* first;
    list_node_double* last;
+   list_node_double* current;
 } list_double;
 
 typedef struct {
    size_t len;
    list_node_ptr* first;
    list_node_ptr* last;
+   list_node_ptr* current;
 } list_ptr;
 
 typedef struct {
    size_t len;
    list_node_ptr_plus* first;
    list_node_ptr_plus* last;
+   list_node_ptr_plus* current;
 } list_ptr_plus;
 
 
@@ -130,7 +134,7 @@ bool list_contains_ptr      (const list_ptr      *list, void  *val);
 bool list_contains_ptr_plus (const list_ptr_plus *list, void  *val);
 
 
-/* Funciones Misceláneas */
+/* Print */
 
 //imprime la lista
 #define list_print(list)      _Generic((list),\
@@ -138,6 +142,9 @@ bool list_contains_ptr_plus (const list_ptr_plus *list, void  *val);
    list_double   * : list_print_double  )(list)
 void list_print_int    (const list_int    *list);
 void list_print_double (const list_double *list);
+
+
+/* Iterar */
 
 //evalúa f en cada elemento de la lista
 #define list_foreach(list, f)       _Generic((list),\
@@ -149,6 +156,29 @@ void list_foreach_int      (list_int      *list, void f(int));
 void list_foreach_double   (list_double   *list, void f(double));
 void list_foreach_ptr      (list_ptr      *list, void f(void *));
 void list_foreach_ptr_plus (list_ptr_plus *list, void f(void *, char));
+
+
+//prepara la lista para iterar con list_iter_next
+#define list_iter_begin(list)           _Generic((list),\
+   list_int      * : list_iter_begin_int                ,\
+   list_double   * : list_iter_begin_double             ,\
+   list_ptr      * : list_iter_begin_ptr                ,\
+   list_ptr_plus * : list_iter_begin_ptr_plus           )(list)
+void list_iter_begin_int      (list_int      *list);
+void list_iter_begin_double   (list_double   *list);
+void list_iter_begin_ptr      (list_ptr      *list);
+void list_iter_begin_ptr_plus (list_ptr_plus *list);
+
+//avanza un paso en la iteración
+#define list_iter_next(list, ...)       _Generic((list),\
+   list_int      * : list_iter_next_int                ,\
+   list_double   * : list_iter_next_double             ,\
+   list_ptr      * : list_iter_next_ptr                ,\
+   list_ptr_plus * : list_iter_next_ptr_plus           )(list, __VA_ARGS__)
+bool list_iter_next_int      (list_int      *list, size_t *i, int    *val);
+bool list_iter_next_double   (list_double   *list, size_t *i, double *val);
+bool list_iter_next_ptr      (list_ptr      *list, size_t *i, void  **val);
+bool list_iter_next_ptr_plus (list_ptr_plus *list, size_t *i, void  **val, char *code);
 
 
 
