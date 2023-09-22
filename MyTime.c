@@ -29,7 +29,7 @@ time_t leer_time_t (){
   return aux.tv_sec - time_t_0;
 }
 
-char *segundos_a_str (double segundos){
+const char *segundos_a_str (double segundos){
   static char stamp[15]; //a lo sumo, el texto es "xxxh xxm xx.xs": 14 chars.
 
   //si hay menos de un minuto:
@@ -54,7 +54,7 @@ char *segundos_a_str (double segundos){
   return stamp;
 }
 
-char *time_t_a_str (time_t segundos){
+const char *time_t_a_str (time_t segundos){
   static char stamp[15]; //a lo sumo, el texto es "xxxh xxm xxs": 12 chars.
 
   //si hay menos de un minuto:
@@ -79,6 +79,6 @@ char *time_t_a_str (time_t segundos){
   return stamp;
 }
 
-char *reloj_a_str(){
+const char *reloj_a_str(){
   return segundos_a_str(leer_segundos());
 }
