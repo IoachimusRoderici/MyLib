@@ -3,6 +3,7 @@ MyLists
 
 Esta librería define objetos y funciones para trabajar con listas.
 Por el momento, sólo tenemos *singly linked lists*.
+
 No uses listas, usá arrays; esto fue sólo por diversión.
 
 Ojo que esto incluye `"MyStealPointer.h"`.
@@ -205,7 +206,7 @@ La intención es que se use de la siguiente manera:
 ```c
 size_t i;
 TYPE item;
-list_iter_begin(list, &i);
+list_iter_begin(list);
 
 while (list_iter_next(list, &i, &item)){
    /* hacer cosas acá */
