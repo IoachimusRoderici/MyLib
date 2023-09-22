@@ -11,8 +11,8 @@
    https://gitlab.gnome.org/GNOME/glib/-/blob/main/glib/gmem.h
 */
 
-#define steal_pointer(p) ({     \
-   typeof(p) __temp = (p);      \
-   (p) = NULL;                  \
-   __temp;                      \
+#define steal_pointer(p) ({   \
+   typeof(p) temp = (p);      \
+   (p) = NULL;                \
+   temp;                      \
 })
