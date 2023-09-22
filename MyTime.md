@@ -28,7 +28,7 @@ La resolución del reloj se puede obtener con
 int clock_getres (CLOCK_MONOTONIC, struct timespec *res);
 ```
 
-Y en este sistema me dió 1 ns.
+Y en la notebook me dió 1 ns.
 
 El tiempo actual se obtiene con
 
