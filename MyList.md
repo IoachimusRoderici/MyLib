@@ -3,6 +3,7 @@ MyLists
 
 Esta librería define objetos y funciones para trabajar con listas.
 Por el momento, sólo tenemos *singly linked lists*.
+No uses listas, usá arrays; esto fue sólo por diversión.
 
 Ojo que esto incluye `"MyStealPointer.h"`.
 
@@ -13,15 +14,19 @@ Tipos
 Tenemos cuatro tipos de listas:
 
 -  Listas de ints
+
    Cada nodo tiene un `int`.
 
 -  Listas de doubles
+
    Cada nodo tiene un `double`.
 
 -  Listas de pointers
+
    Cada nodo tiene un `void *`.
    
 -  Listas de pointers plus
+
    Cada nodo tiene un `void *` y un char que sirve de código.
 
 
