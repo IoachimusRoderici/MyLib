@@ -2,7 +2,14 @@
 
 Este módulo tiene funciones para generar vectores aleatórios con las distribuciones de siempre:
 
-- Uniforme en el volumen de una esfera
-- Uniforme en la superficie de la esfera unitaria
+- `random_point_inside_sphere`
 
-La distribución uniforme en un cubo no se incluye porque es parte de la librería estándar.
+  Distribución uniforme en el volumen de una esfera N-D.
+
+- `random_direction`
+
+  Distribución uniforme en la superficie de la esfera unitaria N-D.
+
+- `random_direction_inside_cone`
+
+  Distribución uniforme en la superficie de la esfera unitaria 3D, limitada a un cono.
