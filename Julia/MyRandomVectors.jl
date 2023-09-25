@@ -46,25 +46,30 @@ end
 Devuelve un vector unitario aleatorio con distribución uniforme
 dentro del cono con la directríz dada por dir y el semi-ángulo
 dado por apertura.
+
+@pre |dir| = 1 && apertura ∈ [0, π]
+@post |result| = 1 && ∠(dir, result) < apertura
 """
 function random_direction_inside_cone(dir::Vector{Float64}, apertura::Real)
+    #Basado en https://math.stackexchange.com/a/182936
 
-    #Primero generar una dirección aleatoria dentro
-    #del cono centrado en el eje z:
-    z = rand(Uniform(cos(apertura), 1))
-    k = sqrt(1 - z^2)  #distancia perpendicular a z
+    #Generar vectores ortonormales a dir:
+    i = argmin(dir)
+    u = normalize(I[1:3, i] × dir) #es perpendicular a dir y a un eje cartesiano.
+    v = dir × u
+
+    #Elejir ángulo aleatorio al rededor de dir:
     φ = rand(Uniform(0, 2*π))
-    vec = [k*cos(φ), k*sin(φ), z]
+    uv = cos(φ)*u + sin(φ)*v
 
-    #Y después rotarlo 
-    eje_de_rotacion = [0, 0, 1.0] × dir
-    cosθ = dir ⋅ [0, 0, 1.0] #ángulo de rotación
-    θ = acos(cosθ)
-    sinθ = sin(θ)
+    #Elegir una distancia a lo largo de la directríz:
+    z = rand(Uniform(cos(apertura), 1))
 
-    vec_rotado = cosθ*vec + sinθ*(eje_de_rotacion×vec) + (1-cosθ)*(eje_de_rotacion⋅vec)*eje_de_rotacion
+    #Apertura del punto elegido:
+    θ = acos(z)
 
-    normalize(vec_rotado)
+    #Calcular el punto:
+    z*dir + sin(θ)*uv    
 end
 
 
