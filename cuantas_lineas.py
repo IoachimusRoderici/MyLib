@@ -34,6 +34,7 @@ contenidos de los archivos:
   cuando en esa línea también cierra un comentario multilínea anterior.
 - Los comentarios multilínea no tienen en su texto instancias del símbolo que
   abre comentarios multilínea.
+- En python los comentarios multilínea se escriben con " y no '.
 """
 
 def tipo_de_linea(linea, singleline, multiline_open, multiline_close):
@@ -92,55 +93,61 @@ def tipo_de_linea(linea, singleline, multiline_open, multiline_close):
     else:
         return "código"
 
-def cuantas_lineas(text, singleline, multiline_open, multiline_close):
+def cuantas_lineas_en_str(text, singleline, multiline_open, multiline_close):
     """
     Cuenta las líneas de código en un string, ignorando comentarios y líneas
     vacías.
 
     Argumentos:
     - text es un string con el contenido de un archivo de source code.
-    - singleline es un string con el símbolo usado para abrir comentarios de
-      una sola línea.
-    - multiline_open es un string con el símbolo usado para abrir comentarios
-      de múltiples líneas.
-    - multiline_clode es un string con el símbolo usado para cerrar comentarios
-      de múltiples líneas.
+    - singleline es el símbolo que abre los comentarios unlínea
+    - multiline_open es el símbolo que abre los comentarios multilínea
+    - multiline_close es el símbolo que cierra los comentarios multilínea
     
     Devuelve el número de líneas de código.
-    Eleva un error si un comentario multilínea no se cierra.
     """
     lineas = 0
     multiline_abierto = False
     
-    for linea in text.split('\n'):
-        #Ignorar líneas vacías:
-        if linea.isspace() or linea.isempty():
-            continue
-
-        #Si estamos en un comentario multilínea, esperar a que cierre:
-        if multiline_abierto:
-            if multiline_close in linea:
-                multiline_abierto = False
-                #Si algún desquiciado escribió código después de un comentario
-                #multilínea, conservarlo:
-                if not linea.endswith(multiline_close):
-
-            else:
-                continue
-        
+    for linea in text.split('\n'):        
         #Ignorar leading whitespace:
         linea = linea.lstrip()
 
-        #Si no empieza con comentario, es código:
-        empieza_con_comentario = linea.startswith(multiline_open) or linea.startswith(singleline)
-        if not empieza_con_comentario:
+        tipo = tipo_de_linea(linea, singleline, multiline_open, multiline_close)
+        
+        if tipo == "cierra multilínea":
+            multiline_abierto = False
+
+        elif tipo == "código" and not multiline_abierto:
             lineas += 1
 
-        #Chequear si abre un comentario multilínea:
-        if multiline_open in linea:
+        elif  tipo == "código y abre multilínea":
+            lineas += 1
             multiline_abierto = True
 
-        #Chequear si cierra un comentario multilínea:
-        if multiline_abierto and multiline_close in linea:
-            multiline_abierto = False        
+        elif tipo == "abre multilinea":
+            multiline_abierto = True
 
+    return lineas
+
+def cuantas_lineas_en_archivo(nombre):
+    """
+    Cuenta las líneas de código en un archivo, ignorando comentarios y líneas
+    vacías.
+
+    Nombre es el nombre de archivo. Se eleva un error si no tiene una de las
+    extensiones reconocidas.
+    
+    Devuelve el número de líneas de código.
+    """
+    singlelines =      {"c":"//", "cpp":"//", "py":"#",   "jl":"#" }
+    multiline_opens =  {"c":"/*", "cpp":"/*", "py":'"""', "jl":"#="}
+    multiline_closes = {"c":"*/", "cpp":"*/", "py":'"""', "jl":"=#"}
+
+    extension = nombre.split(".")[-1].lower()
+
+    if extension not in ["c", "cpp", "py", "jl"]:
+        raise TypeError(f"La extensión {extension} no está soportada (as in {nombre}).")
+
+    singleline = singlelines[est]
+    
