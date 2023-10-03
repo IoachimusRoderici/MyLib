@@ -32,15 +32,19 @@ contenidos de los archivos:
   multilínea.
 - Los comentarios multilínea pueden abrir y cerrar en la misma línea, excepto
   cuando en esa línea también cierra un comentario multilínea anterior.
+- Los comentarios multilínea no tienen en su texto instancias del símbolo que
+  abre comentarios multilínea.
 """
-
-def es_singleline(linea, singleline):
-    """Determina si una línea es un comentario singleline."""
-    return linea.startswith(singleline)
 
 def tipo_de_linea(linea, singleline, multiline_open, multiline_close):
     """
     Determina qué acciones contiene una línea en cuanto a código y comentarios.
+
+    Parmámetros:
+    - línea es la línea. Tiene que estar lstriped.
+    - singleline es el símbolo que abre los comentarios unlínea
+    - multiline_open es el símbolo que abre los comentarios multilínea
+    - multiline_close es el símbolo que cierra los comentarios multilínea
 
     Los tipos de línea posibles son:
     - Línea vacía
@@ -64,6 +68,29 @@ def tipo_de_linea(linea, singleline, multiline_open, multiline_close):
     - "código y abre multilínea"
     - "cierra multilínea"
     """
+    if linea.isspace() or len(linea)==0:
+        return "vacía"
+
+    elif linea.startswith(singleline):
+        return "comentario"
+
+    elif linea.startswith(multiline_open):
+        if multiline_close in linea:
+            return "comentario"
+        else:
+            return "abre multilinea"
+
+    elif multiline_open in linea:
+        if multiline_close in linea:
+            return "código"
+        else:
+            return "código y abre multilínea"
+
+    elif multiline_close in linea:
+        return "cierra multilínea"
+
+    else:
+        return "código"
 
 def cuantas_lineas(text, singleline, multiline_open, multiline_close):
     """
@@ -116,6 +143,4 @@ def cuantas_lineas(text, singleline, multiline_open, multiline_close):
         #Chequear si cierra un comentario multilínea:
         if multiline_abierto and multiline_close in linea:
             multiline_abierto = False        
-
-
 
