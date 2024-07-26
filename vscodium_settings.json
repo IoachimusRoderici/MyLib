@@ -13,18 +13,13 @@
     "[python]": {
         "diffEditor.ignoreTrimWhitespace": false
     },
+    "[julia]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false
+    },
     "git.confirmSync": false,
     "git.autofetch": true,
     "editor.inlineSuggest.suppressSuggestions": true,
     "hediet.vscode-drawio.resizeImages": null,
-    "C_Cpp_Runner.compilerArgs": [
-        "-lgsl",
-        "-lblas"
-    ],
-    "files.associations": {
-        "*.pde": "java",
-        "*.pyde": "python"
-    },
     "terminal.integrated.commandsToSkipShell": [
         "language-julia.interrupt"
     ],
@@ -32,13 +27,6 @@
     "julia.enableTelemetry": true,
     "julia.executablePath": "/snap/julia/current/bin/julia",
     "julia.execution.codeInREPL": true,
-    "[vhdl]": {
-        "editor.fontLigatures": "'ss01', 'ss03', 'ss05', 'ss08', 'cv02', 'cv15', 'cv20', 'cv24', 'zero'",
-        "editor.fontFamily": "'Fira Code'"
-    },
-    "[mips]": {
-        "editor.tabSize": 8
-    },
     "cSpell.language": "en,es",
     "cSpell.showStatus": true,
     "cSpell.enableFiletypes": [
@@ -52,12 +40,12 @@
                 "\\${1,2}([^$]*)\\${1,2}" //ignorar lo que está entre $ o entre $$.
             ]
         },
-        {
-            "languageId": "julia",
-            "includeRegExpList": [
-                "\"{3}([^\"]*)\"{3}" //incluir sólo docstrings.
-            ]
-        }
+        // {
+        //     "languageId": "julia",
+        //     "includeRegExpList": [
+        //         "\"{3}([^\"]*)\"{3}" //incluir sólo docstrings.
+        //     ]
+        // }
     ],
     "[markdown]": {
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
