@@ -53,6 +53,9 @@
         "!json",
         "julia"
     ],
+    "cSpell.customDictionaries": {
+        "mi_diccionario": {"name": "Mi Diccionario", "path": "/home/jrodriguez/.config/VSCodium/User/cspell_mi_diccionario.txt", "scope": "user", "addWords": true}
+    },
     "cSpell.languageSettings": [
         {
             "languageId": "markdown",
