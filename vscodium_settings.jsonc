@@ -68,14 +68,14 @@
         {
             "languageId": "python",
             "includeRegExpList": [
-                "(\"\"\"|''')[^\\1]*\\1", //incluir docstrings
+                "(\"\"\"|''')[^\\1]*?\\1", //incluir docstrings
                 "#.*", //incluir comentarios
             ]
         },
         {
             "languageId": "julia",
             "includeRegExpList": [
-                "\"{3}[^\\1]*\\1", //incluir docstrings
+                "(\"{3})[^\\1]*?\\1", //incluir docstrings
                 "#.*", //incluir comentarios
             ]
         }
