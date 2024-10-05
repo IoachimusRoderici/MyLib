@@ -62,22 +62,29 @@
             "languageId": "markdown",
             "ignoreRegExpList": [
                 "\\${1,2}([^$]*)\\${1,2}", //ignorar lo que está entre $ o entre $$.
-                "`([^`]*)`", //ignorar lo que está entre `.
-                "```([^`]*)```", //ignorar lo que está entre ```.
+                "`([^`]*)`",               //ignorar lo que está entre `.
+                "```([^`]*)```",           //ignorar lo que está entre ```.
             ]
         },
         {
             "languageId": "python",
             "includeRegExpList": [
                 "(\"\"\"|''')[^\\1]*?\\1", //incluir docstrings
-                "#.*", //incluir comentarios
+                "#.*",                     //incluir comentarios
+            ]
+        },
+        {
+            "languageId": "c,cpp",
+            "includeRegExpList": [
+                "//.*",                   //incluir comentarios
+                "\\/\\*[\\s\\S]*?\\*\\/", //incluir comentarios multilínea
             ]
         },
         {
             "languageId": "julia",
             "includeRegExpList": [
                 "(\"{3})[^\\1]*?\\1", //incluir docstrings
-                "#.*", //incluir comentarios
+                "#.*",                //incluir comentarios
             ]
         },
         {
