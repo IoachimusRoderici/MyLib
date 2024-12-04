@@ -45,15 +45,8 @@
     "hediet.vscode-drawio.resizeImages": null,
 
     "cSpell.language": "en,es",
-    "cSpell.showStatus": true,
     "cSpell.caseSensitive": true,
     "cSpell.allowCompoundWords": true,
-    "cSpell.enableFiletypes": [
-        "!jsonc",
-        "!json",
-        "julia",
-        "shellscript"
-    ],
     "cSpell.customDictionaries": {
         "mi_diccionario": {"name": "Mis Palabras", "path": "/home/pluk/.config/VSCodium/User/cspell_mi_diccionario.txt", "scope": "user", "addWords": true}
     },
@@ -83,14 +76,20 @@
         {
             "languageId": "julia",
             "includeRegExpList": [
-                "(\"{3})[^\\1]*?\\1", //incluir docstrings
-                "#.*",                //incluir comentarios
+                "(\"{3})[^\\1]*?\\1",     //incluir docstrings
+                "#.*",                    //incluir comentarios
             ]
         },
         {
             "languageId": "shellscript",
             "includeRegExpList": [
-                "#.*", //incluir comentarios
+                "#.*",                    //incluir comentarios
+            ]
+        },
+        {
+            "languageId": "json,jsonc",
+            "includeRegExpList": [
+                "//.*",                   //incluir comentarios
             ]
         }
     ]
