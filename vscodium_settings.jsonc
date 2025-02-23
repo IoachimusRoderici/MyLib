@@ -1,6 +1,7 @@
 {
     // Cosas del IDE y GUI
-    "workbench.colorTheme": "Visual Studio Dark",
+    "window.titleBarStyle": "custom",
+    "window.newWindowDimensions": "maximized",
     
     "security.workspace.trust.untrustedFiles": "open",
     "security.workspace.trust.enabled": false,
@@ -11,7 +12,9 @@
     "editor.fontSize": 16,
     "editor.fontFamily": "'Fira Code'",
     "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss05', 'ss08', 'cv02', 'cv15', 'zero'",
-    
+    "editor.rulers": [],
+
+    "terminal.external.linuxExec": "/home/pluk/.config/VSCodium/open_external_teminal.sh",
     "terminal.integrated.cursorStyle": "line",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.commandsToSkipShell": [
@@ -30,7 +33,7 @@
     },
     "julia.symbolCacheDownload": true,
     "julia.enableTelemetry": true,
-    "julia.executablePath": "/snap/julia/current/bin/julia",
+    "julia.executablePath": "/home/pluk/.juliaup/bin",
     "julia.execution.codeInREPL": true,
 
     "[markdown]": {
@@ -40,6 +43,7 @@
     // Cosas de git
     "git.confirmSync": false,
     "git.autofetch": true,
+    "git.suggestSmartCommit": false,
 
     // Extensiones
     "hediet.vscode-drawio.resizeImages": null,
